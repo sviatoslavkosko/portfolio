@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sviatoslav Kosko | Level Artist & 3D Generalist</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/images/favicon2.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    
+    <header class="header">
+        <nav class="nav-bar">
+            <div class="logo">
+                <a href="#home" class="logo-text">S.K.</a>
+            </div>
+            <div class="burger" id="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#portfolio">Works</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <h1>Sviatoslav Kosko</h1>
+            <p>Level Artist & World Builder</p>
+        </section>
+
+        <section id="portfolio" class="portfolio-section full-page">
+            <div class="container">
+                <span class="section-label">01 / Selection</span>
+                <h2>Selected Works</h2>
+                <div class="portfolio-grid" id="portfolio-grid"></div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section full-page">
+            <div class="container about-grid">
+                <div class="about-text">
+                    <span class="section-label">02 / Identity</span>
+                    <h2>About Me</h2>
+                    <div class="about-description">
+    <p><strong>I am a 3D Level Artist and World Builder with over 5 years of experience in content creation.</strong> My passion lies in crafting atmospheric, immersive environments that tell a story through every detail.</p>
+    <p>Currently based in Vienna (Open to Relocation), I specialize in the full cycle of environment production in Unreal Engine 5 — from initial blockout to final cinematic lighting and optimization.</p>
+    <p><strong>Core Expertise:</strong></p>
+    <ul class="about-list">
+        <li><span>Full-cycle Environment Production in UE5</span></li>
+        <li><span>High-end Technical Optimization (Lumen, Nanite)</span></li>
+        <li><span>Advanced Cinematic Lighting & Post-processing</span></li>
+        <li><span>Environmental Storytelling & LookDev</span></li>
+        <li><span>Custom 3D Asset Creation in Blender</span></li>
+    </ul>
+</div>
+                    <a href="assets/docs/CV2.pdf" class="cv-button" download>
+                        Download CV <i class="fa-solid fa-arrow-down-long" style="margin-left: 10px;"></i>
+                    </a>
+                </div>
+                <div class="about-image-container">
+                    <div class="photo-placeholder">
+                        <img src="assets/images/me.webp" alt="Sviatoslav Kosko" class="about-photo">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services-section full-page">
+            <div class="container">
+                <span class="section-label">03 / Expertise</span>
+                <h2>Services</h2>
+                <div class="services-grid">
+                    <div class="service-card reveal">
+                        <div class="service-content">
+                            <h3>Level Design & Blockout</h3>
+                            <p>Translating ideas into playable spaces. Whiteboxing, structural setup, and flow planning to ensure the best player experience.</p>
+                        </div>
+                        <div class="service-gallery">
+                            <div class="slider-container" id="slider-1">
+                                <img src="assets/images/service1-1.webp" class="slider-img active" alt="Blockout 1">
+                                <img src="assets/images/service1-2.webp" class="slider-img" alt="Blockout 2">
+                                <img src="assets/images/service1-3.webp" class="slider-img" alt="Blockout 3">
+                                <div class="slider-nav">
+                                    <button onclick="prevSlide(1)">←</button>
+                                    <button onclick="nextSlide(1)">→</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+
+
+                    <div class="service-card reveal">
+                        <div class="service-content">
+                            <h3>Environment Art & Set Dressing</h3>
+                            <p>Filling scenes with details and environmental storytelling. Creating immersive worlds using high-quality assets and custom modules.</p>
+                        </div>
+                        <div class="service-gallery">
+                            <div class="slider-container" id="slider-2">
+                                <img src="assets/images/service2-1.webp" class="slider-img active" alt="Set Dressing 1">
+                                <img src="assets/images/service2-2.webp" class="slider-img" alt="Set Dressing 2">
+                                <img src="assets/images/service2-3.webp" class="slider-img" alt="Set Dressing 3">
+                                <div class="slider-nav">
+                                    <button onclick="prevSlide(2)">←</button>
+                                    <button onclick="nextSlide(2)">→</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-card reveal">
+                        <div class="service-content">
+                            <h3>Cinematic Lighting & Storytelling</h3>
+<p>Applying film techniques to real-time environments. Using advanced lighting, framing, and color palettes to build immersive, emotion-driven scenes.</p>
+                        </div>
+                        <div class="service-gallery">
+                            <div class="slider-container" id="slider-3">
+                                <img src="assets/images/SW2.webp" class="slider-img active" alt="Blockout 1">
+                                <img src="assets/images/SW3.webp" class="slider-img" alt="Blockout 2">
+                                <img src="assets/images/SW4.webp" class="slider-img" alt="Blockout 3">
+                                <div class="slider-nav">
+                                    <button onclick="prevSlide(3)">←</button>
+                                    <button onclick="nextSlide(3)">→</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills-section full-page">
+            <div class="container">
+                <span class="section-label">04 / Stack</span>
+                <h2 class="section-title">Technical Stack</h2>
+                <div class="skills-flex">
+                    <div class="skill-card">
+                        <img src="assets/images/ue5.png" alt="UE5" class="skill-icon-img">
+                        <p>Unreal Engine 5</p>
+                    </div>
+                    <div class="skill-card"><i class="fa-solid fa-cube"></i><p>Blender</p></div>
+                    <div class="skill-card"><i class="fa-solid fa-palette"></i><p>PS / Affinity</p></div>
+                    <div class="skill-card"><i class="fa-solid fa-shapes"></i><p>Cinema4D</p></div>
+                    <div class="skill-card"><i class="fa-brands fa-unity"></i><p>Unity</p></div>
+                    <div class="skill-card"><i class="fa-solid fa-film"></i><p>AE / Premiere</p></div>
+                    <div class="skill-card"><i class="fa-brands fa-figma"></i><p>Figma / Miro</p></div>
+                    <div class="skill-card">
+    <i class="fa-solid fa-brain"></i>
+    <p>AI Integration</p>
+</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+    <div class="container footer-grid">
+        <div class="footer-brand">
+            <span class="section-label">Get in touch</span>
+            <h2 class="footer-cta">Let's build<br>new worlds.</h2>
+        </div>
+
+        <div class="footer-info">
+            <div class="info-group">
+                <span class="label">Location</span>
+                <p><i class="fa-solid fa-location-dot" style="margin-right: 8px; font-size: 0.8rem;"></i> Vienna, Austria</p>
+            </div>
+            <div class="info-group">
+                <span class="label">Work with me</span>
+                <a href="mailto:koskoslava@gmail.com" class="footer-link">koskoslava@gmail.com</a>
+            </div>
+        </div>
+
+        <div class="footer-socials">
+            <span class="label">Socials</span>
+           <ul class="social-list">
+    <li><a href="https://www.artstation.com/metasviatoslav" target="_blank">
+        <i class="fa-brands fa-artstation"></i> ArtStation</a></li>
+    
+    <li><a href="https://www.linkedin.com/in/sviatoslav-kosko/" target="_blank">
+        <i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
+    
+    <li><a href="https://www.behance.net/slavakosko" target="_blank">
+        <i class="fa-brands fa-behance"></i> Behance</a></li>
+    
+    <li><a href="https://t.me/metajpeg" target="_blank">
+        <i class="fa-brands fa-telegram"></i> Telegram</a></li>
+    
+    <li><a href="https://www.instagram.com/metajpg/" target="_blank">
+        <i class="fa-brands fa-instagram"></i> Instagram</a></li>
+</ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="footer-bottom" style="margin-top: 80px; padding-top: 30px; border-top: 1px solid #111;">
+            <p class="footer-copy">© 2026 Sviatoslav Kosko. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

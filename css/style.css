@@ -1,0 +1,410 @@
+/* VARIABLES & FONTS */
+:root {
+    --bg-color: #0a0a0a;
+    --text-color: #e0e0e0;
+    --accent-color: #ffffff;
+    --font-main: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* Жорстке скидання для всіх посилань */
+a, a:visited, a:hover, a:active {
+    color: inherit;
+    text-decoration: none;
+    outline: none;
+}
+
+/* Специфічний фікс для плиток портфоліо */
+.portfolio-item-link {
+    display: block;
+    color: var(--text-color) !important;
+    text-decoration: none !important;
+}
+
+.portfolio-item-link:hover {
+    color: #ffffff;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: none !important; /* Ховаємо дефолтний курсор */
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 50px;
+}
+
+/* SECTIONS DISTANCE */
+.full-page {
+    min-height: 100vh;
+    padding: 160px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid #111;
+}
+
+/* TYPOGRAPHY */
+h1 { font-size: clamp(3rem, 10vw, 6rem); font-weight: 700; text-transform: uppercase; letter-spacing: 5px; }
+h2 { 
+    font-size: clamp(2.5rem, 5vw, 4rem); 
+    font-weight: 300; 
+    text-transform: uppercase; 
+    letter-spacing: 4px; 
+    margin-bottom: 80px; 
+    position: relative; 
+    display: inline-block; 
+}
+h2::after { 
+    content: ''; 
+    position: absolute; 
+    left: 0; 
+    bottom: -15px; 
+    width: 60px; 
+    height: 1px; 
+    background-color: var(--accent-color); 
+}
+
+.section-label { 
+    display: block; 
+    font-family: var(--font-mono); 
+    font-size: 0.7rem; 
+    text-transform: uppercase; 
+    color: #444; 
+    letter-spacing: 2px; 
+    margin-bottom: 10px; 
+}
+
+/* CURSOR */
+.cursor {
+    width: 12px; height: 12px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, border-radius 0.2s, background-color 0.2s;
+}
+.cursor.hover {
+    width: 30px; height: 30px;
+    border-color: transparent;
+}
+.cursor.hover::before, .cursor.hover::after {
+    content: ''; position: absolute; background: #fff;
+}
+.cursor.hover::before { top: 50%; left: 0; width: 100%; height: 1px; }
+.cursor.hover::after { left: 50%; top: 0; width: 1px; height: 100%; }
+
+/* HEADER & BURGER */
+.header {
+    position: fixed; top: 0; width: 100%;
+    padding: 30px 50px;
+    background-color: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+}
+.nav-bar { display: flex; justify-content: space-between; align-items: center; }
+.logo-text { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; color: #fff; text-decoration: none; }
+.nav-links { display: flex; list-style: none; gap: 40px; }
+.nav-links a { color: #888; text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
+.nav-links a:hover { color: #fff; }
+
+.burger { display: none; cursor: pointer; z-index: 1100; }
+.burger div { width: 25px; height: 2px; background: #fff; margin: 5px; transition: 0.3s; }
+
+/* HERO */
+.hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; background: #000; }
+.hero::before {
+    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('../assets/images/222.jpg'); background-size: cover; background-position: center;
+    filter: blur(2px) brightness(0.4); z-index: 1; transform: scale(1.05); background-attachment: fixed;
+}
+.hero h1, .hero p { position: relative; z-index: 2; }
+.hero p { font-family: var(--font-mono); color: #888; text-transform: uppercase; letter-spacing: 4px; margin-top: 10px; }
+
+/* PORTFOLIO GRID */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 80px 40px;
+}
+.portfolio-item { position: relative; overflow: hidden; background: #0d0d0d;  }
+.portfolio-image {
+    width: 100%; aspect-ratio: 16/9; object-fit: cover;
+    transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+    transition: transform 0.4s ease-out;
+    filter: grayscale(30%);
+}
+.portfolio-item:hover .portfolio-image { transform: scale(1.05); filter: grayscale(0%); }
+.portfolio-info { padding: 25px 20px; /* Додав 20px з боків, щоб текст не лип до краю */}
+.portfolio-info h3 { font-size: 1.4rem; text-transform: uppercase; margin-bottom: 8px; font-weight: 500; }
+.portfolio-info p { font-family: var(--font-mono); font-size: 0.75rem; color: #555; text-transform: uppercase; }
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items: center; }
+.about-description p { font-size: 1.15rem; color: #aaa; margin-bottom: 25px; line-height: 1.8; }
+.about-list { list-style: none; margin-bottom: 40px; }
+.about-list li { position: relative; padding-left: 25px; margin-bottom: 15px; font-family: var(--font-mono); font-size: 0.9rem; color: #fff; }
+.about-list li::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; background: #fff; }
+.about-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; border: 1px solid #222; }
+
+.cv-button {
+    display: inline-flex; align-items: center; padding: 20px 45px;
+    border: 1px solid #fff; color: #fff; text-decoration: none;
+    font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
+}
+.cv-button:hover { background: #fff; color: #000; }
+
+/* SERVICES */
+.service-card { display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px; margin-bottom: 120px; align-items: center; }
+.service-content h3 { font-size: 2.2rem; margin-bottom: 25px; font-weight: 500; }
+.service-content p { font-size: 1.1rem; color: #888; line-height: 1.8; }
+.service-gallery { position: relative; height: 450px; overflow: hidden; background: #111; }
+.slider-img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 0.7s; }
+.slider-img.active { opacity: 1; }
+.slider-nav { position: absolute; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 10; }
+.slider-nav button {
+    background: transparent; border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; width: 60px; height: 60px; cursor: pointer; transition: 0.3s; backdrop-filter: blur(10px);
+}
+.slider-nav button:hover { background: #fff; color: #000; border-color: #fff; }
+
+/* SKILLS */
+.skills-flex { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; }
+.skill-card { flex: 0 1 200px; padding: 40px; text-align: center; border: 1px solid transparent; transition: 0.4s; }
+.skill-card:hover { border-color: #222; background: #0d0d0d; transform: translateY(-10px); }
+.skill-icon-img { width: 45px; height: 45px; margin-bottom: 25px; filter: brightness(0) invert(1); }
+.skill-card i { font-size: 2.5rem; color: #fff; margin-bottom: 25px; display: block; }
+.skill-card p {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    white-space: nowrap; /* Забороняє тексту перестрибувати на новий рядок */
+}
+
+/* FOOTER */
+footer { padding: 120px 0 60px; background: #050505; border-top: 1px solid #111; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; }
+.footer-cta {
+    font-family: var(--font-main);
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    /* Робимо заголовок футера дуже масивним */
+}
+.footer-cta::after { display: none; }
+.footer-copy { font-family: var(--font-mono); font-size: 0.7rem; color: #333; text-transform: uppercase; }
+.info-group { margin-bottom: 40px; }
+.footer-link, .social-list a { font-family: var(--font-mono); font-size: 1rem; color: #666; text-decoration: none; transition: 0.3s; }
+.footer-link:hover, .social-list a:hover { color: #fff; }
+.social-list { list-style: none; display: flex; flex-direction: column; gap: 15px; }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .portfolio-grid { grid-template-columns: 1fr 1fr; }
+    .about-grid, .service-card { grid-template-columns: 1fr; gap: 50px; }
+}
+
+@media (max-width: 768px) {
+    .container { padding: 0 30px; }
+    .header { padding: 20px 30px; }
+    .burger { display: block; }
+    .nav-links {
+        position: fixed; right: 0; top: 0; height: 100vh; width: 100%; background: #0a0a0a;
+        flex-direction: column; align-items: center; justify-content: center;
+        transform: translateX(100%); transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        background: rgba(10, 10, 10, 0.9); /* Додали прозорість */
+        backdrop-filter: blur(15px); /* Залишаємо розмиття для солідності */
+    }
+    .nav-links.nav-active { transform: translateX(0); }
+    .nav-links li { margin: 20px 0; }
+    .nav-links a { font-size: 1.5rem; }
+
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .about-image-container { order: -1; }
+    .service-gallery { height: 300px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 60px; }
+
+    /* Cross animation for burger */
+    .toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+    .toggle .line2 { opacity: 0; }
+    .toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+}
+
+/* REVEAL ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.2, 1, 0.3, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+
+.work-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.tag {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    padding: 3px 8px;
+    border: 1px solid #222;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 2px;
+}
+
+.social-list i {
+    width: 20px; /* Фіксована ширина, щоб текст був вирівняний */
+    margin-right: 10px;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.social-list a:hover i {
+    transform: scale(1.2); /* Іконка злегка збільшується при наведенні */
+    color: #fff;
+}
+
+/* Блюр для закритих проектів */
+.item-locked .portfolio-image {
+    filter: blur(20px) brightness(0.4) grayscale(100%);
+    pointer-events: none; /* Щоб не працював паралакс мишкою */
+}
+
+/* Центрування замка */
+.locked-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    z-index: 10;
+}
+
+.locked-overlay i {
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 10px;
+}
+
+.locked-status {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+}
+
+.portfolio-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    z-index: 1; /* Поверх картинки */
+    transition: opacity 0.4s ease;
+    pointer-events: none; /* Щоб не заважало кліку по лінку */
+}
+
+.portfolio-info {
+    z-index: 2; /* Текст завжди поверх відео */
+}
+
+/* Стилі для CTA плитки (фінальний штрих) */
+.item-cta {
+    cursor: pointer;
+}
+
+/* Оверлей з іконкою локації */
+.cta-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.cta-overlay i {
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 10px;
+    transition: color 0.4s ease, transform 0.4s ease;
+}
+
+.cta-status {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+}
+
+/* Неонове наведення (стриманий неоновий ефект) */
+.item-cta:hover .portfolio-item {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); /* Стримане біле світіння */
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.item-cta:hover .cta-overlay i {
+    color: #fff; /* Іконка стає білою */
+    transform: scale(1.1); /* Злегка збільшується */
+}
+
+/* Інформація CTA (змінений текст) */
+.cta-info h3 {
+    text-transform: none; /* Щоб "LET'S BUILD" було з великої */
+    letter-spacing: 1px;
+}
+
+.cta-info p {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #555;
+    letter-spacing: 2px;
+}
+.portfolio-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-image {
+    position: relative;
+    z-index: 1; /* Найнижчий шар */
+    transition: transform 0.6s ease;
+}
+
+.portfolio-video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    z-index: 2; /* Відео над картинкою... */
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.portfolio-info {
+    position: relative;
+    z-index: 3; /* ...але ТЕКСТ над відео! */
+    pointer-events: none; /* Щоб текст не заважав клікати на посилання */
+}
+
+.work-tags {
+    z-index: 4;
+}
