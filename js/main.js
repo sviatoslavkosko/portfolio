@@ -1,3 +1,23 @@
+// 1. Слайдери (Global Functions) - Мають бути зверху, щоб HTML їх бачив
+window.nextSlide = (id) => {
+    const slider = document.getElementById(`slider-${id}`);
+    if (!slider) return;
+    const images = slider.querySelectorAll('.slider-img');
+    let activeIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+    if (activeIndex === -1) return;
+    images[activeIndex].classList.remove('active');
+    images[(activeIndex + 1) % images.length].classList.add('active');
+};
+
+window.prevSlide = (id) => {
+    const slider = document.getElementById(`slider-${id}`);
+    if (!slider) return;
+    const images = slider.querySelectorAll('.slider-img');
+    let activeIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+    if (activeIndex === -1) return;
+    images[activeIndex].classList.remove('active');
+    images[(activeIndex - 1 + images.length) % images.length].classList.add('active');
+};
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Portfolio Generation
     const grid = document.getElementById('portfolio-grid');
