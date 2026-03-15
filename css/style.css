@@ -131,6 +131,25 @@ h2::after {
 }
 .hero h1, .hero p { position: relative; z-index: 2; }
 .hero p { font-family: var(--font-mono); color: #888; text-transform: uppercase; letter-spacing: 4px; margin-top: 10px; }
+.hero-content {
+    width: 100%;
+    padding: 0 20px; /* Створює "подушку" від стінок */
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem); /* Сама зменшиться на мобілці */
+    margin-bottom: 10px;
+    line-height: 1.1;
+}
+
+.hero-content p {
+    font-size: clamp(0.7rem, 3vw, 1rem); /* Робимо текст посади адаптивним */
+    letter-spacing: clamp(2px, 1vw, 5px);
+    max-width: 90%; /* Не дає тексту розповзтися до самих країв */
+    margin: 0 auto;
+    white-space: normal; /* Дозволяє перенос на другий рядок, щоб не тиснуло */
+}
 
 /* PORTFOLIO GRID */
 .portfolio-grid {
@@ -407,4 +426,31 @@ footer { padding: 120px 0 60px; background: #050505; border-top: 1px solid #111;
 
 .work-tags {
     z-index: 4;
+}
+/* Фікс для мобілок: щоб текст не лип до країв */
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2.8rem; /* Трохи менше ім'я */
+        padding: 0 10px;
+    }
+    
+    .hero-content p {
+        font-size: 0.4rem; /* Менший шрифт для посади */
+        letter-spacing: 2px; /* Менша розрядка, щоб влізло */
+        padding: 0 20px;
+        white-space: normal; /* Дозволяємо перенос, якщо зовсім не влазить */
+        line-height: 1.4;
+    }
+    
+    .portfolio-grid {
+        padding: 10px; /* Більше простору між плитками на мобілці */
+    }
+}
+
+/* Спеціально для iPhone 12 Pro та подібних */
+@media (max-width: 390px) {
+    .hero-content p {
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+    }
 }

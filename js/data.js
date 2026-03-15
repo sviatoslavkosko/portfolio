@@ -5,7 +5,7 @@ const portfolioData = [
         role: "Main Project, Art Director, Block-out, Mechanics, Environment Art, Lightning",
         tags: ["UE5", "Lumen", "Optimization"], // Ось так
         image: "assets/images/Nullum.webp", 
-        video: "assets/images/nullum-loop.mp4", // Нове поле
+        video: "assets/images/nullum-Loop.mp4", // Нове поле
         link: "https://www.artstation.com/artwork/nJg2Jo"
     },
     {
