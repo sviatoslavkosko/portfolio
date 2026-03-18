@@ -5,10 +5,21 @@
     --accent-color: #ffffff;
     --font-main: 'Space Grotesk', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+    --side-gap: 6vw; /* Динамічний відступ: 6% від ширини екрана */
+    --container-gap: 25px;
 }
 
-html { scroll-behavior: smooth; }
-* { margin: 0; padding: 0; box-sizing: border-box; }
+html { 
+    scroll-behavior: smooth; 
+}
+
+
+
+* { 
+    margin: 0; padding: 0; box-sizing: border-box; 
+    box-sizing: border-box; /* Щоб padding не розширював блоки за межі екрана */
+    -webkit-tap-highlight-color: transparent; /* Прибирає синій квадрат при натисканні на iPhone */
+}
 
 /* Жорстке скидання для всіх посилань */
 a, a:visited, a:hover, a:active {
@@ -112,6 +123,9 @@ h2::after {
     background-color: rgba(10, 10, 10, 0.8);
     backdrop-filter: blur(15px);
     z-index: 1000;
+    /* Оце зробить його "масляним" */
+    transition: transform 0.5s cubic-bezier(0.3, 1, 0.3, 1);
+    will-change: transform;
 }
 .nav-bar { display: flex; justify-content: space-between; align-items: center; }
 .logo-text { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; color: #fff; text-decoration: none; }
@@ -123,14 +137,29 @@ h2::after {
 .burger div { width: 25px; height: 2px; background: #fff; margin: 5px; transition: 0.3s; }
 
 /* HERO */
-.hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; background: #000; }
-.hero::before {
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}.hero::before {
     content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background-image: url('../assets/images/222.jpg'); background-size: cover; background-position: center;
     filter: blur(2px) brightness(0.4); z-index: 1; transform: scale(1.05); background-attachment: fixed;
 }
 .hero h1, .hero p { position: relative; z-index: 2; }
-.hero p { font-family: var(--font-mono); color: #888; text-transform: uppercase; letter-spacing: 4px; margin-top: 10px; }
+.hero p { 
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    line-height: 1.6;
+    max-width: 280px; /* Примусово розбиваємо на 2 рядки на мобілці */
+    margin: 0 auto;
+    display: block;
+    opacity: 0.8;
+}
 .hero-content {
     width: 100%;
     padding: 0 20px; /* Створює "подушку" від стінок */
@@ -299,7 +328,7 @@ footer { padding: 120px 0 60px; background: #050505; border-top: 1px solid #111;
 
 /* Блюр для закритих проектів */
 .item-locked .portfolio-image {
-    filter: blur(20px) brightness(0.4) grayscale(100%);
+    filter: blur(5px) brightness(0.4) grayscale(100%);
     pointer-events: none; /* Щоб не працював паралакс мишкою */
 }
 
@@ -312,18 +341,34 @@ footer { padding: 120px 0 60px; background: #050505; border-top: 1px solid #111;
     z-index: 10;
 }
 
+/* 1. ПРИБИРАЄМО ДЕФОЛТНИЙ ПАЛЕЦЬ */
+a, button, .portfolio-item, .burger, .slider-btn {
+    cursor: none !important; /* Тепер Windows-курсор зникне зовсім */
+}
+
+/* 2. ЛОКНУТІ ПРОЕКТИ (Світлі, але з іконкою) */
+.locked-overlay {
+    background: rgba(255, 255, 255, 0.05); /* Ледь помітний відблиск замість темряви */
+    backdrop-filter: blur(1px); /* Легке розмиття, щоб було зрозуміло, що проект закритий */
+    transition: all 0.4s ease;
+}
+
+.item-locked:hover .locked-overlay {
+    background: transparent; /* При наведенні стає зовсім прозорим */
+    backdrop-filter: none;
+}
+
 .locked-overlay i {
-    font-size: 3rem;
-    color: rgba(255, 255, 255, 0.2);
-    margin-bottom: 10px;
+    color: #fff;
+    font-size: 2rem;
+    opacity: 0.9;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5); /* Щоб іконку було видно на світлому */
 }
 
 .locked-status {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    color: rgba(255, 255, 255, 0.4);
-    text-transform: uppercase;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .portfolio-video {
@@ -453,4 +498,89 @@ footer { padding: 120px 0 60px; background: #050505; border-top: 1px solid #111;
         font-size: 0.75rem;
         letter-spacing: 2px;
     }
+}
+
+/* Приховуємо курсор на мобільних */
+@media (max-width: 1024px) {
+    .cursor {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+    }
+    .cursor.active {
+        opacity: 1;
+    }
+}
+
+/* Додай це в кінець style.css */
+
+/* 1. Плавне зникнення курсора на мобілках */
+@media (max-width: 1024px) {
+    .cursor {
+        opacity: 0;
+        transition: opacity 0.4s ease, transform 0.2s ease;
+        pointer-events: none; /* Щоб не заважав клікати */
+    }
+    .cursor.active {
+        opacity: 1;
+    }
+}
+
+/* 2. Фікс відступів та заголовка на iPhone */
+@media (max-width: 480px) {
+    :root {
+        --side-gap: 20px; /* Єдиний відступ для всього */
+    }
+
+    /* Навбар: вирівнюємо краї по тексту/картинках */
+    .nav-content {
+        display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    /* Оце головне — синхронізація з сіткою */
+    padding: 0 var(--side-gap) !important;
+    }
+
+    .hero-content {
+        padding: 0 var(--side-gap);
+    }
+
+    /* Розбиваємо довгий напис Level Artist & World Builder */
+   .hero-content p {
+        font-size: 0.8rem;
+        line-height: 1.6;
+        max-width: 240px; /* Примусово розбиваємо на 2 рядки */
+        margin: 0 auto;
+        display: block;
+        letter-spacing: 2px;
+    }
+
+    /* Сітка портфоліо теж має мати такий самий відступ */
+    .portfolio-grid {
+        padding: 20px var(--side-gap);
+    }
+
+    /* Ховаємо системний курсор при тапах */
+    a, button, .portfolio-item {
+        cursor: none !important;
+    }
+
+    /* Навбар та контент по одній лінії */
+.nav-content, 
+.hero-content, 
+.portfolio-grid, 
+.footer-content {
+    padding-left: var(--side-gap) !important;
+    padding-right: var(--side-gap) !important;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+@media (max-width: 1024px) {
+    .nav-hidden {
+        /* Ховаємо трохи далі, щоб напевне не було видно тіні */
+        transform: translateY(-110%); 
+    }
+}
+
 }
