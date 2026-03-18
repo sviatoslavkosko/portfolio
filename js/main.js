@@ -264,24 +264,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. ВІДЕО-ЛОГІКА
-    function initSmartVideoLogic() {
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const v = entry.target.querySelector('video');
-                if (v && !entry.isIntersecting) { v.pause(); v.style.opacity = '0'; }
-            });
-        }, { threshold: 0.1 });
+function initSmartVideoLogic() {
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    // Спрощена логіка: тільки мобільний автоплей/автостоп
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target.querySelector('.portfolio-video');
+            if (!video) return;
 
-        document.querySelectorAll('.portfolio-item').forEach(item => {
-            const v = item.querySelector('video');
-            if (!v) return;
-            obs.observe(item);
-            item.addEventListener('mouseenter', () => { v.play(); v.style.opacity = '1'; });
-            item.addEventListener('mouseleave', () => { v.pause(); v.style.opacity = '0'; });
-            item.addEventListener('touchstart', () => { v.play(); v.style.opacity = '1'; }, {passive: true});
+            if (entry.isIntersecting) {
+                // Якщо відео на екрані — пробуємо запустити
+                video.play().catch(() => {
+                    // Якщо автоплей заблоковано браузером — ігноруємо
+                });
+                video.style.opacity = '1';
+            } else {
+                // Якщо відео пішло з екрана — примусово стопимо
+                video.pause();
+                video.style.opacity = '0';
+                video.currentTime = 0; // Скидаємо на початок
+            }
         });
-    }
+    }, { 
+        threshold: 0.2 // Відіео має бути видно на 20%, щоб запуститися
+    });
+
+    portfolioItems.forEach(item => {
+        obs.observe(item);
+    });
+}
 
 // 5. КУРСОР ТА БУРГЕР
 const cursor = document.querySelector('.cursor');
