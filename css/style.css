@@ -405,27 +405,64 @@ footer .section-label { color: rgba(244,242,237,0.5); }
     .cursor { opacity: 0; }
 }
 @media (max-width: 768px) {
-    :root { --side-gap: 20px; }
-    .container { padding: 0 24px; }
-    .header { padding: 18px var(--side-gap); }
-    .logo-img { height: 32px; }
-    .burger { display: block; }
-    /* full-screen dark blurred menu (fixed → viewport now that header has no transform) */
-    .nav-links {
-        position: fixed; inset: 0; width: 100%; height: 100vh; height: 100dvh;
-        flex-direction: column; align-items: center; justify-content: center;
-        transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-        background: rgba(10, 8, 6, 0.55); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
-        z-index: 1050;
+    /* ... (твої інші мобільні стилі типу .container { padding: 0 24px; }) ... */
+
+    /* 1. ХЕДЕР НАЗАВЖДИ НА ЕКРАНІ */
+    .header.nav-hidden {
+        transform: none !important; 
     }
-    .nav-links.nav-active { transform: translateX(0); }
-    .nav-links li { margin: 20px 0; }
-    .nav-links a { font-size: 1.5rem; color: var(--bg-color); mix-blend-mode: normal; }
-    .service-gallery { height: 300px; }
-    .footer-grid { grid-template-columns: 1fr; gap: 60px; }
-    .toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
-    .toggle .line2 { opacity: 0; }
-    .toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+
+    /* 2. ПОВЕРТАЄМО DIFFERENCE (і лікуємо баг Telegram/iOS) */
+    /* Додаємо translateZ(0), це змушує мобільні браузери (і Telegram) 
+       рендерити blend-mode коректно, не гублячи фон */
+    .logo-text, .logo-img, .burger div {
+        mix-blend-mode: difference !important;
+        color: #fff !important; 
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+    .burger div {
+        background: #fff !important;
+    }
+
+    /* 3. МОБІЛЬНЕ МЕНЮ (ТЕМНЕ, ЗАБЛЮРЕНЕ) */
+    .nav-links {
+        position: fixed; 
+        right: -100%; /* Ховаємо жорстко за правий край */
+        top: 0; 
+        height: 100dvh; /* На всю висоту екрана */
+        width: 100%;
+        
+        /* Фон меню: дуже темно-сірий (навіть якщо блюр зламається в ТГ, буде темно) */
+        background: rgba(14, 12, 10, 0.96) !important; 
+        
+        /* Блюр заднього фону */
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        
+        /* Лікування багів iOS/Telegram з накладанням */
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        
+        transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        z-index: 1050;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+
+    /* Коли меню відкрите */
+    .nav-links.nav-active {
+        right: 0 !important; 
+    }
+
+    /* 4. ТЕКСТ В МЕНЮ (БЕЗ DIFFERENCE) */
+    /* Оскільки фон меню тепер ЗАВЖДИ темний, нам тут difference не треба. 
+       Робимо текст тупо світлим, щоб він ідеально читався. */
+    .nav-links a {
+        mix-blend-mode: normal !important;
+        color: var(--bg-color) !important; /* Світлий колір */
+        font-size: 1.5rem;
+        margin: 20px 0;
+    }
 }
 @media (max-width: 680px) {
     .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 62vw; }
