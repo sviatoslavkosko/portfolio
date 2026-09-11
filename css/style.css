@@ -405,64 +405,56 @@ footer .section-label { color: rgba(244,242,237,0.5); }
     .cursor { opacity: 0; }
 }
 @media (max-width: 768px) {
-    /* ... (твої інші мобільні стилі типу .container { padding: 0 24px; }) ... */
-
-    /* 1. ХЕДЕР НАЗАВЖДИ НА ЕКРАНІ */
-    .header.nav-hidden {
-        transform: none !important; 
+    .burger { 
+        display: block !important; /* Повертаємо бургер */
     }
 
-    /* 2. ПОВЕРТАЄМО DIFFERENCE (і лікуємо баг Telegram/iOS) */
-    /* Додаємо translateZ(0), це змушує мобільні браузери (і Telegram) 
-       рендерити blend-mode коректно, не гублячи фон */
-    .logo-text, .logo-img, .burger div {
-        mix-blend-mode: difference !important;
-        color: #fff !important; 
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
-    .burger div {
-        background: #fff !important;
-    }
-
-    /* 3. МОБІЛЬНЕ МЕНЮ (ТЕМНЕ, ЗАБЛЮРЕНЕ) */
     .nav-links {
-        position: fixed; 
-        right: -100%; /* Ховаємо жорстко за правий край */
-        top: 0; 
-        height: 100dvh; /* На всю висоту екрана */
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
+        height: 100dvh;
         
-        /* Фон меню: дуже темно-сірий (навіть якщо блюр зламається в ТГ, буде темно) */
-        background: rgba(14, 12, 10, 0.96) !important; 
+        /* Темне затемнення під варіанти вибору */
+        background: rgba(14, 12, 10, 0.95);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
         
-        /* Блюр заднього фону */
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         
-        /* Лікування багів iOS/Telegram з накладанням */
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-        
-        transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        /* ХОВАЄМО МЕНЮ БЕЗ ЗСУВУ (це вбиває баг з розтягуванням вправо) */
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
         z-index: 1050;
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
 
-    /* Коли меню відкрите */
+    /* ПОКАЗУЄМО МЕНЮ */
     .nav-links.nav-active {
-        right: 0 !important; 
+        opacity: 1;
+        pointer-events: auto;
     }
 
-    /* 4. ТЕКСТ В МЕНЮ (БЕЗ DIFFERENCE) */
-    /* Оскільки фон меню тепер ЗАВЖДИ темний, нам тут difference не треба. 
-       Робимо текст тупо світлим, щоб він ідеально читався. */
+    /* Світлі слова на темному затемненні */
     .nav-links a {
-        mix-blend-mode: normal !important;
-        color: var(--bg-color) !important; /* Світлий колір */
-        font-size: 1.5rem;
+        color: #F4F2ED !important;
+        font-size: 1.8rem;
         margin: 20px 0;
     }
+    
+    /* Хрестик бургера стає світлим, коли меню відкрите (щоб його було видно) */
+    .burger.toggle div {
+        background: #F4F2ED !important;
+    }
+    
+    /* Анімація хрестика */
+    .toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+    .toggle .line2 { opacity: 0; }
+    .toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
 }
 @media (max-width: 680px) {
     .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 62vw; }
