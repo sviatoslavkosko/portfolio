@@ -233,10 +233,12 @@ h2::after { content: ''; position: absolute; left: 0; bottom: -15px; width: 60px
 
 /* Робимо лого і лінки темними, без жодних бленд-модів */
 .logo-text, .nav-links a {
+   font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; 
     mix-blend-mode: normal !important;
     color: var(--text-color);
 }
 .logo-img {
+   height: 40px; width: auto; display: block;
     mix-blend-mode: normal !important;
     /* Якщо твоя картинка логотипу біла — розкоментуй рядок нижче, щоб зробити її темною */
     filter: brightness(0); 
